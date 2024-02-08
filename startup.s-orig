@@ -1,0 +1,40 @@
+/* startup_cortexM3
+Eng.Eslam Ahmed
+*/
+
+/* SRAM 0x20000000 */ 
+
+.section .Vector
+.word 0x20001000 				/* address of stack pointer*/
+.word _reset 					// reset handler  
+.word _NMI_handeler				//NMI handler
+.word _HARD_FUALT_HANDLER  		//Hard Fault
+.word Vector_handler			//MM Fault	
+.word Vector_handler			//BusFualt
+.word Vector_handler			//Usage Fault
+.word Vector_handler			//RESERVED
+.word Vector_handler			//RESERVED
+.word Vector_handler			//RESERVED
+.word Vector_handler			//RESERVED
+.word Vector_handler			//SV Call
+.word Vector_handler			//Debug RESERVED
+.word Vector_handler			//RESERVED
+.word Vector_handler			//PendSV
+.word Vector_handler			//Systick
+.word Vector_handler			//IRQ0
+.word Vector_handler			//IRQ2
+.word Vector_handler			//IRQ3
+
+				/* up to IRQ7*/
+
+
+
+
+			
+.section .text
+_reset:
+	bl main
+	b .
+.thumb_func //to enable 16-bit instruction and 32-instruction
+Vector_handler:  // any another handler branch on reset
+	b _reset
